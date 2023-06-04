@@ -118,8 +118,8 @@ module.exports = {
         });
       }
       const result = compareSync(body.password, results.password);
-      if (results) {
-        results.password = undefined;
+      if (result) { 
+        console.log(results)
         const jsontoken = sign({ result: results }, process.env.TOKEN_KEY, {
           expiresIn: "1h",
         });

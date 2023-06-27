@@ -29,6 +29,32 @@
   padding: 10px;
 }
 
+.register_password_input_container {
+  flex: 1;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ min-width: 47%;
+ margin-top: 20px;
+ margin-right: 10px;
+ background-color: white;
+ border: 1px solid black;
+}
+
+
+.register_password_input{
+  padding: 10px;
+  border: none;
+  min-width: 30%;
+  flex: 1;
+}
+
+.register_password_icon{
+  align-self: flex-end;
+}
+
+
+
 .register_agreement {
   font-size: 12px;
   margin: 20px 0px;

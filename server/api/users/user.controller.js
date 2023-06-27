@@ -4,6 +4,7 @@ const {
   getUsers,
   updateUser,
   deleteUser,
+  registerUser,
   getUserByEmail,
 } = require("./user.service");
 
@@ -13,18 +14,25 @@ const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
 module.exports = {
-  createUser: (req, res) => {
+  registerUser: (req, res) => {
     const body = req.body;
     console.log(res.body);
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
-    create(body, (err, results) => {
+    registerUser(body, (err, results) => {
       if (err) {
-        console.log(err);
-        return res.status(500).json({
-          succes: 0,
-          message: "Database connection error",
-        });
+        if (err.statusCode === 409) {
+          return res.status(409).json({
+            success: 0,
+            message: err.message,
+          });
+        } else {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection error",
+          });
+        }
       }
       return res.status(200).json({
         succes: 1,
@@ -109,7 +117,10 @@ module.exports = {
     const body = req.body;
     getUserByEmail(body.email, (err, results) => {
       if (err) {
-        console.log(err);
+                return res.json({
+          success: 0,
+          data: "Invalid email or password",
+        });
       }
       if (!results) {
         return res.json({
@@ -118,22 +129,42 @@ module.exports = {
         });
       }
       const result = compareSync(body.password, results.password);
-      if (result) { 
-        console.log(results)
-        const jsontoken = sign({ result: results }, process.env.TOKEN_KEY, {
-          expiresIn: "1h",
-        });
+      if (result) {
+        const jsontoken = sign({ result: results }, process.env.TOKEN_KEY);
         return res.json({
           success: 1,
           message: "login successfully",
+          token: jsontoken,
+          id: results.id,
+          name: results.name,
+        });
+      } else {
+        return res.json({
+          success: 0,
+          data: "Invalid email or password",
+        });
+      }
+    });
+  },
+  /*
+  registerUser: (req, res) => {
+    const body = req.body;
+    registerUser(body, (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      if (results) {
+        return res.json({
+          success: 1,
+          message: "register successfully",
           token: jsontoken,
         });
       } else {
         return res.json({
           success: 0,
-          data: "Invalid email or password"
-        })
+          data: "Error registering user",
+        });
       }
     });
-  },
+  },*/
 };

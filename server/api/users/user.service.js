@@ -1,25 +1,36 @@
 const pool = require("../../config/database");
 
 module.exports = {
-  create: (data, callBack) => {
-    pool.query(
-      "insert into user(firstName,lastName,gender,email,password,number,role) values(?,?,?,?,?,?,'customer')",
-      [
-        data.first_name,
-        data.last_name,
-        data.gender,
-        data.email,
-        data.password,
-        data.number,
-      ],
-      (error, results, fields) => {
-        if (error) {
-          return callBack(error);
-        }
-        return callBack(null, results);
+registerUser: (data, callBack) => {
+  pool.query(
+    "SELECT COUNT(*) AS count FROM user WHERE email = ?",
+    [data.email],
+    (error, results, fields) => {
+      if (error) {
+        return callBack(error);
       }
-    );
-  },
+
+      const existingEmailCount = results[0].count;
+      if (existingEmailCount > 0) {
+        const error = new Error("Email-ul există deja");
+        error.statusCode = 409; // Set the status code to indicate a conflict
+        return callBack({ statusCode: error.statusCode, message: error.message });
+      }
+
+      // If no existing user found, proceed with the insertion
+      pool.query(
+        "INSERT INTO user(id, name, email, password, role) VALUES (null, ?, ?, ?, 'customer')",
+        [data.name, data.email, data.password],
+        (error, results, fields) => {
+          if (error) {
+            return callBack(error);
+          }
+          return callBack(null, results);
+        }
+      );
+    }
+  );
+},
   getUsers: (callBack) => {
     pool.query(
       "select id, firstName, lastName, gender, email, number, role from user",
@@ -34,7 +45,7 @@ module.exports = {
   },
   getUserById: (id, callBack) => {
     pool.query(
-      "select id, firstName, lastName, gender, email, number, role from user where id = ?",
+      "select * from user where id = ?",
       [id],
       (error, results, fields) => {
         if (error) {
@@ -76,6 +87,11 @@ module.exports = {
       }
     );
   },
+  /*
+  registerUser: (email) => {
+
+  },
+  */
   getUserByEmail: (email, callBack) => {
     pool.query(
       "select * from user where email = ?",

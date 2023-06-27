@@ -42,6 +42,12 @@
   color: black;
 }
 
+.navbar_btn{
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+}
+
 .search_container{
  background-color: white;
  border: 1px solid black;

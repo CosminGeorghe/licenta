@@ -4,11 +4,12 @@
 
 .product_list_title{
     margin: 20px;
+    text-align: center;
 }
 
 .product_list_sort_container{
 display: flex;
-justify-content: space-between;
+justify-content: space-around;
 }
 
 .product_list_sort{

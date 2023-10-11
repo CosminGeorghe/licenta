@@ -8,7 +8,8 @@ const ProductList = () => {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
   const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get('search');
+  const searchQuery = searchParams.get("search");
+  const allProducts = searchParams.get("allproducts");
   const [isLoading, setLoading] = useState(true);
   const [filter, setFilter] = useState("0");
   const [sort, setSort] = useState("nou");
@@ -38,10 +39,12 @@ const ProductList = () => {
 
   return (
     <div className="product_list_container">
-      <h1 className="product_list_title">{category}</h1>
+      {category && (
+        <h1 className="product_list_title">Categoria curenta: {category}</h1>
+      )}
       <div className="product_list_sort_container">
         <div className="product_list_sort">
-          <span className="product_sort_text">Sort products:</span>
+          <span className="product_sort_text">Sorteaza produse:</span>
           <select
             onChange={(e) => setSort(e.target.value)}
             className="product_select"
@@ -62,7 +65,7 @@ const ProductList = () => {
               Pret (Mare {">"} Mic)
             </option>
           </select>
-          <span className="product_sort_text">Filter by category:</span>
+          <span className="product_sort_text">Filtreaza dupa categorie:</span>
           <select
             onChange={(e) => setFilter(e.target.value)}
             className="product_select"
@@ -77,24 +80,27 @@ const ProductList = () => {
             ))}
           </select>
         </div>
-        <div className="product_list_sort">
-          <span className="product_sort_text">
-            Number of products per page:
-          </span>
-          <select
-            onChange={(e) => setProductsPerPage(e.target.value)}
-            className="product_select"
-          >
-            <option className="product_option">25</option>
-            <option className="product_option">50</option>
-            <option className="product_option">75</option>
-            <option className="product_option">100</option>
-          </select>
-        </div>
+        {false && (
+          <div className="product_list_sort">
+            <span className="product_sort_text">
+              Numarul produselor pe pagina:
+            </span>
+            <select
+              onChange={(e) => setProductsPerPage(e.target.value)}
+              className="product_select"
+            >
+              <option className="product_option">25</option>
+              <option className="product_option">50</option>
+              <option className="product_option">75</option>
+              <option className="product_option">100</option>
+            </select>
+          </div>
+        )}
       </div>
       <Products
         category={category}
         searchQuery={searchQuery}
+        allProducts={allProducts}
         filter={filter}
         sort={sort}
         productsPerPage={productsPerPage}

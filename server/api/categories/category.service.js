@@ -1,16 +1,13 @@
 const pool = require("../../config/database");
 
 module.exports = {
-  create: (data, callBack) => {
+  createCategory: (data, callBack) => {
     pool.query(
-      "insert into user(firstName,lastName,gender,email,password,number,role) values(?,?,?,?,?,?,'customer')",
+      "insert into category values(null,?,?,?)",
       [
-        data.first_name,
-        data.last_name,
-        data.gender,
-        data.email,
-        data.password,
-        data.number,
+        data.category,
+        data.img,
+        data.title,
       ],
       (error, results, fields) => {
         if (error) {
@@ -22,7 +19,7 @@ module.exports = {
   },
   getCategories: (callBack) => {
     pool.query(
-      "select id, category, img, title from category",
+      "select * from category",
       [],
       (error, results, fields) => {
         if (error) {
@@ -32,28 +29,13 @@ module.exports = {
       }
     );
   },
-  getUserById: (id, callBack) => {
+  updateCategory: (id, data, callBack) => {
     pool.query(
-      "select id, firstName, lastName, gender, email, number, role from user where id = ?",
-      [id],
-      (error, results, fields) => {
-        if (error) {
-          return callBack(error);
-        }
-        return callBack(null, results[0]);
-      }
-    );
-  },
-  updateUser: (id, data, callBack) => {
-    pool.query(
-      "update user set firstName=?, lastName=?, gender=?, email=?, password=?, number=? where id=?",
+      "update category set category=?, img=?, title=? where id=?",
       [
-        data.first_name,
-        data.last_name,
-        data.gender,
-        data.email,
-        data.password,
-        data.number,
+        data.category,
+        data.img,
+        data.title,
         id,
       ],
       (error, results, fields) => {
@@ -64,22 +46,10 @@ module.exports = {
       }
     );
   },
-  deleteUser: (id, data, callBack) => {
+  deleteCategory: (id, callBack) => {
     pool.query(
-      "delete from user where id = ?",
+      "delete from category where id = ?",
       [id],
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        }
-        return callBack(null, results[0]);
-      }
-    );
-  },
-  getUserByEmail: (email, callBack) => {
-    pool.query(
-      "select * from user where email = ?",
-      [email],
       (error, results, fields) => {
         if (error) {
           callBack(error);

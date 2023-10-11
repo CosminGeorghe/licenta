@@ -1,0 +1,111 @@
+.expandablecategory_container {
+  background-color: lightblue;
+  margin: 10px 0px;
+}
+
+.category_not-expanded_container {
+  display: flex;
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category_not-expanded_container_item {
+  padding: 0px 10px;
+  font-size: large;
+}
+
+.category_not-expanded_expand_btn {
+  background-color: transparent;
+  border: none;
+}
+
+.category_expanded_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.category_expanded_label_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.category_expanded_label {
+  font-size: large;
+  width: 150px;
+  text-align: end;
+}
+
+.category_expanded_input {
+  font-size: large;
+  margin: 10px 0px;
+  padding: 4px;
+  width: 100%;
+}
+
+.category_expanded_expand_btn {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+}
+
+.category_expanded_confirm_btn {
+  padding: 8px;
+  background-color: #c79e1b;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.category_expanded_confirm_btn:hover {
+  background-color: #f8c624;
+}
+
+.category_expanded_confirm_btn:active {
+  background-color: #957712;
+}
+
+.category_expanded_reset_btn {
+  padding: 8px;
+  background-color: #0cccfc;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.category_expanded_reset_btn:hover {
+  background-color: #7bdcf5;
+}
+
+.category_expanded_reset_btn:active {
+  background-color: #40c6ef;
+}
+
+.category_expanded_delete_btn {
+  padding: 8px;
+  background-color: #ca1a23;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.category_expanded_delete_btn:hover {
+  background-color: #d73e47;
+}
+
+.category_expanded_delete_btn:active {
+  background-color: #81252a;
+}

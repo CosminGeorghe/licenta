@@ -29,7 +29,7 @@ const RegisterPage = () => {
 
   const registerUser = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    if (password === confirmPassword && password.length >= 8) {
       setErrorMessage(null);
       setIsRegistering(true);
       axios
@@ -51,14 +51,16 @@ const RegisterPage = () => {
         .finally(() => {
           setIsRegistering(false);
         });
-    } else {
+    } else if (password !== confirmPassword) {
       setErrorMessage("Parolele sunt diferite");
+    } else if (password.length <= 8) {
+      setErrorMessage("Introdu o parola de minim 8 caractere");
     }
   };
 
   const span = (
     <>
-      <span style={{padding: `10px`}}>{errorMessage}</span>
+      <span style={{ padding: `10px`, color: "red" }}>{errorMessage}</span>
     </>
   );
 
@@ -81,7 +83,6 @@ const RegisterPage = () => {
             className="register_input"
             required
           ></input>
-
 
           <div className="register_password_input_container">
             <input
@@ -115,12 +116,16 @@ const RegisterPage = () => {
               {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
             </span>
           </div>
-          {errorMessage && span}
-          <span className="register_agreement">
-            By creatin an account, , I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </span>
-          <button className="register_button">CREATE</button>
+          <div className="register_form_bottom">
+            {errorMessage && span}
+            <span className="register_agreement">
+              Prin crearea unui cont declar ca sunt de acord ca datele sa imi
+              fie procesate
+            </span>
+            <button disabled={isRegistering} className="register_button">
+              CREAZA
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -1,0 +1,27 @@
+.homepage_btn_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 20px;
+  margin-top: 10px;
+}
+
+.homepage_btn {
+  border: none;
+  padding: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: black;
+  font-size: 13px;
+  color: white;
+  font-weight: 500;
+}
+
+.homepage_btn:hover {
+  background-color: lightgray;
+  color: black;
+}
+
+.homepage_btn:active {
+  transform: scale(0.95);
+}

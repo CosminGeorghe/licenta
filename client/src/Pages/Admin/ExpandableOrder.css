@@ -1,0 +1,186 @@
+.expandableorder_container {
+  background-color: lightblue;
+  margin: 10px 0px;
+}
+
+.order_not-expanded_container {
+  display: flex;
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order_not-expanded_container_item {
+  padding: 0px 10px;
+  font-size: large;
+}
+
+.order_not-expanded_expand_btn {
+  background-color: transparent;
+  border: none;
+}
+
+.order_expanded_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.order_expanded_label_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.order_expanded_label {
+  font-size: large;
+  text-align: start;
+}
+
+.order_expanded_input {
+  font-size: large;
+  margin: 10px 0px;
+  padding: 4px;
+  width: 100%;
+}
+
+.order_expanded_expand_btn {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+}
+
+.order_expanded_confirm_btn {
+  padding: 8px;
+  background-color: #c79e1b;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.order_expanded_confirm_btn:hover {
+  background-color: #f8c624;
+}
+
+.order_expanded_confirm_btn:active {
+  background-color: #957712;
+}
+
+.order_expanded_reset_btn {
+  padding: 8px;
+  background-color: #56d2f2;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.order_expanded_reset_btn:hover {
+  background-color: #7bdcf5;
+}
+
+.order_expanded_reset_btn:active {
+  background-color: #40c6ef;
+}
+
+.order_expanded_delete_btn {
+  padding: 8px;
+  background-color: #ac3138;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.order_expanded_delete_btn:hover {
+  background-color: #d73e47;
+}
+
+.order_expanded_delete_btn:active {
+  background-color: #81252a;
+}
+
+.pending_btn {
+  padding: 8px;
+  background-color: #ac3138;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.pending_btn:hover {
+  background-color: #d73e47;
+}
+
+.pending_btn:active {
+  background-color: #81252a;
+}
+
+.waiting_btn {
+  padding: 8px;
+  background-color: #c79e1b;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.waiting_btn:hover {
+  background-color: #f8c624;
+}
+
+.waiting_btn:active {
+  background-color: #957712;
+}
+
+.delivering_btn {
+    padding: 8px;
+    background-color: #56d2f2;
+    color: white;
+    font-size: medium;
+    border-radius: 4px;
+    border: none;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delivering_btn:hover {
+    background-color: #7bdcf5;
+  }
+  
+  .delivering_btn:active {
+    background-color: #40c6ef;
+  }
+
+.delviered_btn {
+  padding: 8px;
+  background-color: #5dbea3;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.delviered_btn:hover {
+  background-color: #5adbb5;
+}
+
+.delviered_btn:active {
+  background-color: #33b249;
+}

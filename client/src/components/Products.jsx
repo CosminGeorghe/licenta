@@ -3,8 +3,14 @@ import Product from "./Product";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Products = ({ category, searchQuery, filter, sort, productsPerPage }) => {
-
+const Products = ({
+  category,
+  searchQuery,
+  allProducts,
+  filter,
+  sort,
+  productsPerPage,
+}) => {
   const [isLoading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -16,8 +22,10 @@ const Products = ({ category, searchQuery, filter, sort, productsPerPage }) => {
           category
             ? `${process.env.REACT_APP_API_URL}/products?category=${category}`
             : searchQuery
-              ? `${process.env.REACT_APP_API_URL}/products`
-              : `${process.env.REACT_APP_API_URL}/products`
+            ? `${process.env.REACT_APP_API_URL}/products`
+            : allProducts
+            ? `${process.env.REACT_APP_API_URL}/products`
+            : `${process.env.REACT_APP_API_URL}/products/?new=true`
         )
         .then((res) => {
           setProducts(res.data.data);
@@ -32,20 +40,22 @@ const Products = ({ category, searchQuery, filter, sort, productsPerPage }) => {
   }, [category]);
 
   useEffect(() => {
-    if (searchQuery){
+    if (searchQuery) {
       setFilteredProducts(
-        products.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        products.filter((product) =>
+          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
       );
-console.log("called",products.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase())));
-    } 
-  },[products, searchQuery])
-
+    }
+  }, [products, searchQuery]);
 
   useEffect(() => {
     if (category) {
       if (Number(filter) !== 0) {
         setFilteredProducts(
-          products.filter((item) => Number(item.subcategory_id) === Number(filter))
+          products.filter(
+            (item) => Number(item.subcategory_id) === Number(filter)
+          )
         );
       } else {
         setFilteredProducts(products);
@@ -53,7 +63,7 @@ console.log("called",products.filter((product) => product.title.toLowerCase().in
     }
   }, [products, category, filter]);
 
-  useEffect(() => {console.log(filteredProducts);
+  useEffect(() => {
     if (sort === "nou") {
       setFilteredProducts((prev) =>
         [...prev].sort(function (a, b) {
@@ -105,11 +115,12 @@ console.log("called",products.filter((product) => product.title.toLowerCase().in
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(products);
   return (
     <div className="products_container">
       {filteredProducts.length > 0 ? (
-        filteredProducts.map((product) => <Product product={product} key={product.id} />)
+        filteredProducts.map((product) => (
+          <Product product={product} key={product.id} />
+        ))
       ) : (
         <div>Nu am gasit nici un produs</div>
       )}

@@ -1,17 +1,10 @@
 const pool = require("../../config/database");
 
 module.exports = {
-  create: (data, callBack) => {
+  createProduct: (data, callBack) => {
     pool.query(
-      "insert into user(firstName,lastName,gender,email,password,number,role) values(?,?,?,?,?,?,'customer')",
-      [
-        data.first_name,
-        data.last_name,
-        data.gender,
-        data.email,
-        data.password,
-        data.number,
-      ],
+      "insert into product values(null,?,?,?,?,?)",
+      [data.title, data.desc, data.img, data.price, data.subcategory_id],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
@@ -29,21 +22,28 @@ module.exports = {
     });
   },
   getNewProducts: (callBack) => {
-    pool.query("SELECT * FROM ( SELECT * FROM product ORDER BY id DESC LIMIT 12) AS sub ORDER BY id ASC", [], (error, results, fields) => {
-      if (error) {
-        return callBack(error);
+    pool.query(
+      "SELECT * FROM ( SELECT * FROM product ORDER BY id DESC LIMIT 12) AS sub ORDER BY id ASC",
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
       }
-      return callBack(null, results);
-    });
+    );
   },
   getProductsByCategory: (category, callBack) => {
-    console.log(category);
-    pool.query("SELECT product.* FROM product, subcategory, category where subcategory.id = product.subcategory_id and subcategory.category_id = category.id and category.category=?;", [category], (error, results, fields) => {
-      if (error) {
-        return callBack(error);
+    pool.query(
+      "SELECT product.* FROM product, subcategory, category where subcategory.id = product.subcategory_id and subcategory.category_id = category.id and category.category=?;",
+      [category],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results);
       }
-      return callBack(null, results);
-    });
+    );
   },
   getProductById: (id, callBack) => {
     pool.query(
@@ -57,18 +57,10 @@ module.exports = {
       }
     );
   },
-  updateUser: (id, data, callBack) => {
+  updateProduct: (id, data, callBack) => {
     pool.query(
-      "update user set firstName=?, lastName=?, gender=?, email=?, password=?, number=? where id=?",
-      [
-        data.first_name,
-        data.last_name,
-        data.gender,
-        data.email,
-        data.password,
-        data.number,
-        id,
-      ],
+      "update product set title=?, `desc`=?, img=?, price=?, subcategory_id =? where id=?",
+      [data.title, data.desc, data.img, data.price, data.subcategory_id, id],
       (error, results, fields) => {
         if (error) {
           callBack(error);
@@ -77,22 +69,10 @@ module.exports = {
       }
     );
   },
-  deleteUser: (id, data, callBack) => {
+  deleteProduct: (id, callBack) => {
     pool.query(
-      "delete from user where id = ?",
+      "delete from product where id = ?",
       [id],
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        }
-        return callBack(null, results[0]);
-      }
-    );
-  },
-  getUserByEmail: (email, callBack) => {
-    pool.query(
-      "select * from user where email = ?",
-      [email],
       (error, results, fields) => {
         if (error) {
           callBack(error);

@@ -1,0 +1,53 @@
+.userpage_forms_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.userpage_user_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userpage_user_label {
+  font-size: larger;
+}
+
+.userpage_user_input {
+  font-size: larger;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+.userpage_label-input_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.userpage_buttons_container {
+  display: flex;
+  gap: 10px;
+}
+.userpage_cofirm_btn {
+  padding: 8px;
+  background-color: #008000;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  margin:5px;
+}
+
+.userpage_resetbtn {
+  padding: 8px;
+  background-color: #FF0000;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  margin:5px;
+}

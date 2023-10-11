@@ -4,9 +4,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from "react-redux";
 import { removeProduct, updateProductQuantity } from "../../redux/cartRedux";
 import "./CartProduct.css";
+import { useNavigate } from "react-router-dom";
 const CartProduct = ({ product }) => {
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const navigateToProduct = () => {
+    navigate(`/product/${product.product.id}`)
+  }
 
 
   const decreaseQuantity = () => {
@@ -29,14 +36,14 @@ const CartProduct = ({ product }) => {
   return (
     <>
       <div className="cart_product">
-        <div className="cart_product_detail">
+        <div className="cart_product_detail" onClick={navigateToProduct}>
           <img src={product.product.img} className="cart_image"></img>
           <div className="cart_details">
             <span className="cart_product_name">
-              <b>Product:</b> {product.product.title}
+              <b>PRODUS: </b> {product.product.title}
             </span>
             <span className="cart_product_id">
-              <b>Product ID :</b> {product.product.id}
+              <b>ID PRODUS: </b> {product.product.id}
             </span>
           </div>
         </div>

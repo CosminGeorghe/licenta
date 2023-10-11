@@ -10,13 +10,10 @@ const {
 
 require("dotenv").config();
 
-const { sign } = require("jsonwebtoken");
-
 module.exports = {
-  createCategory: (req, res) => {
+  createProduct: (req, res) => {
     const body = req.body;
-    console.log(res.body);
-    createCategory(body, (err, results) => {
+    createProduct(body, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -52,8 +49,7 @@ module.exports = {
   getProducts: (req, res) => {
     const qNew = req.query.new;
     const qCategory = req.query.category;
-    console.log(qNew);
-    if(qNew != undefined && qNew) {
+    if (qNew != undefined && qNew) {
       getNewProducts((err, results) => {
         if (err) {
           console.log(err);
@@ -100,18 +96,16 @@ module.exports = {
           });
         }
         return res.json({
-          succes: 1,
+          success: 1,
           data: results,
         });
       });
     }
   },
-  updateUser: (req, res) => {
+  updateProduct: (req, res) => {
     const id = req.params.id;
     const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
-    updateUser(id, body, (err, results) => {
+    updateProduct(id, body, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -123,22 +117,21 @@ module.exports = {
         });
       }
       return res.json({
-        succes: 1,
+        success: 1,
         message: "updated successfully",
       });
     });
   },
-  deleteUser: (req, res) => {
+  deleteProduct: (req, res) => {
     const id = req.params.id;
-    const data = req.body;
-    deleteUser(id, data, (err, results) => {
+    deleteProduct(id, (err, results) => {
       if (err) {
         console.log(err);
         return;
       }
       return res.json({
-        succes: 1,
-        message: "user deleted successfully",
+        success: 1,
+        message: "product deleted successfully",
       });
     });
   },

@@ -37,7 +37,7 @@ const Slider = () => {
             >
               <h1 className="slider_title">{item.title}</h1>
               <p className="slider_description">{item.desc}</p>
-              <button className="slider_button">SHOP NOW</button>
+              <button className="slider_button">CUMPARA ACUM</button>
             </div>
           </div>
         ))}

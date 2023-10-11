@@ -29,6 +29,17 @@
   padding: 10px;
 }
 
+.login_password_input_container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 47%;
+  margin: 10px 0px;
+  background-color: white;
+  border: 1px solid black;
+}
+
 .login_button {
   width: 40%;
   border: none;
@@ -36,7 +47,12 @@
   background-color: teal;
   color: white;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin: 10px 0px;
+}
+
+.login_button:disabled {
+  color: rgb(150, 150, 150);
+  cursor: not-allowed;
 }
 
 .login_link {

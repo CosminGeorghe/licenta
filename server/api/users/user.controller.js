@@ -1,8 +1,16 @@
 const {
   create,
+  addUser,
   getUserById,
   getUsers,
+  getUserAccountDetails,
+  getAdressAccountDetails,
+  updateUserAccountDetails,
+  updateUserAddressDetails,
   updateUser,
+  getPassword,
+  updatePassword,
+  updatePasswordByEmail,
   deleteUser,
   registerUser,
   getUserByEmail,
@@ -11,12 +19,36 @@ const {
 require("dotenv").config();
 
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken");
 
 module.exports = {
+  addUser: (req, res) => {
+    const body = req.body;
+    const salt = genSaltSync(10);
+    body.password = hashSync(body.password, salt);
+    addUser(body, (err, results) => {
+      if (err) {
+        if (err.statusCode === 409) {
+          return res.status(409).json({
+            success: 0,
+            message: err.message,
+          });
+        } else {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection error",
+          });
+        }
+      }
+      return res.status(200).json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
   registerUser: (req, res) => {
     const body = req.body;
-    console.log(res.body);
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
     registerUser(body, (err, results) => {
@@ -35,7 +67,7 @@ module.exports = {
         }
       }
       return res.status(200).json({
-        succes: 1,
+        success: 1,
         data: results,
       });
     });
@@ -54,7 +86,7 @@ module.exports = {
         });
       }
       return res.json({
-        succes: 1,
+        success: 1,
         data: results,
       });
     });
@@ -72,8 +104,87 @@ module.exports = {
         });
       }
       return res.json({
-        succes: 1,
+        success: 1,
         data: results,
+      });
+    });
+  },
+  getUserAccountDetails: (req, res) => {
+    const id = req.params.id;
+    getUserAccountDetails(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          success: 0,
+          message: "No User Found",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+  getAdressAccountDetails: (req, res) => {
+    const id = req.params.id;
+    getAdressAccountDetails(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          success: 0,
+          message: "No User Found",
+        });
+      }
+      return res.json({
+        success: 1,
+        data: results,
+      });
+    });
+  },
+
+  updateUserAccountDetails: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    updateUserAccountDetails(id, body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          succes: 0,
+          message: "Failed to update user",
+        });
+      }
+      return res.json({
+        success: 1,
+        message: "updated successfully",
+      });
+    });
+  },
+  updateUserAddressDetails: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    updateUserAddressDetails(id, body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          succes: 0,
+          message: "Failed to update user",
+        });
+      }
+      return res.json({
+        success: 1,
+        message: "updated successfully",
       });
     });
   },
@@ -81,6 +192,7 @@ module.exports = {
     const id = req.params.id;
     const body = req.body;
     const salt = genSaltSync(10);
+    console.log(req.body);
     body.password = hashSync(body.password, salt);
     updateUser(id, body, (err, results) => {
       if (err) {
@@ -94,10 +206,126 @@ module.exports = {
         });
       }
       return res.json({
-        succes: 1,
+        success: 1,
         message: "updated successfully",
       });
     });
+  },
+  updatePasswordUser: (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    getPassword(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          success: 0,
+          message: "parola userului nu exista",
+        });
+      }
+      const result = compareSync(body.oldPassword, results.password);
+      if (result) {
+        const salt = genSaltSync(10);
+        body.password = hashSync(body.newPassword, salt);
+        console.log(salt);
+        updatePassword(id, body, (err, results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if (!results) {
+            return res.json({
+              succes: 0,
+              message: "Failed to update password",
+            });
+          }
+          return res.json({
+            success: 1,
+            message: "parola actualizata cu succes",
+          });
+        });
+      } else {
+        return res.json({
+          success: 0,
+          message: "parola veche este incorecta",
+        });
+      }
+    });
+  },
+  updatePasswordAdmin: (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    const salt = genSaltSync(10);
+    data.password = hashSync(data.password, salt);
+    updatePassword(id, data, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          succes: 0,
+          message: "Failed to update password",
+        });
+      }
+      return res.json({
+        success: 1,
+        message: "parola actualizata cu succes",
+      });
+    });
+  },
+  resetPassword: (req, res) => {
+    const body = req.body;
+    const salt = genSaltSync(10);
+    body.password = hashSync(body.password, salt);
+    verify(body.token, process.env.TOKEN_KEY, (err, decoded) => {
+      if (err) {
+        res.json({
+          succes: 0,
+          message: "Invalid token",
+        });
+      } else {
+        console.log(decoded.email);
+        console.log(req.body.email);
+        updatePasswordByEmail(body.password, decoded.email, (err, results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if (!results) {
+            return res.json({
+              succes: 0,
+              message: "Failed to update password",
+            });
+          }
+          return res.json({
+            success: 1,
+            message: "parola actualizata cu succes",
+          });
+        });
+      }
+    });
+    /*
+    const salt = genSaltSync(10);
+    data.password = hashSync(data.password, salt);
+    updatePassword(id, data, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          succes: 0,
+          message: "Failed to update password",
+        });
+      }
+      return res.json({
+        success: 1,
+        message: "parola actualizata cu succes",
+      });
+    });*/
   },
   deleteUser: (req, res) => {
     const id = req.params.id;
@@ -108,7 +336,7 @@ module.exports = {
         return;
       }
       return res.json({
-        succes: 1,
+        success: 1,
         message: "user deleted successfully",
       });
     });
@@ -117,7 +345,7 @@ module.exports = {
     const body = req.body;
     getUserByEmail(body.email, (err, results) => {
       if (err) {
-                return res.json({
+        return res.json({
           success: 0,
           data: "Invalid email or password",
         });
@@ -137,6 +365,7 @@ module.exports = {
           token: jsontoken,
           id: results.id,
           name: results.name,
+          img: results.img,
         });
       } else {
         return res.json({
@@ -146,25 +375,4 @@ module.exports = {
       }
     });
   },
-  /*
-  registerUser: (req, res) => {
-    const body = req.body;
-    registerUser(body, (err, results) => {
-      if (err) {
-        console.log(err);
-      }
-      if (results) {
-        return res.json({
-          success: 1,
-          message: "register successfully",
-          token: jsontoken,
-        });
-      } else {
-        return res.json({
-          success: 0,
-          data: "Error registering user",
-        });
-      }
-    });
-  },*/
 };

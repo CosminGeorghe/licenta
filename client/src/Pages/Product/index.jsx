@@ -106,7 +106,7 @@ const Product = () => {
         <img src={product.img} className="single_product_image"></img>
         <div className="single_product_right_container">
           <h1 className="single_product_title">{product.title}</h1>
-          <p className="single_product_price">{product.price}</p>
+          <p className="single_product_price">{product.price} LEI</p>
           <div className="single_product_quantity">
             <button onClick={decreaseQuantity} className="single_product_add_substract_button">
               <RemoveIcon />
@@ -118,9 +118,6 @@ const Product = () => {
           </div>
           <button onClick={addToCart} className="single_product_add_to_Cart_btn">
             ADAUGA IN COS
-          </button>
-          <button className="single_product_add_to_wishlist">
-            ❤️ Adauga in Whislist
           </button>
         </div>
       </div>

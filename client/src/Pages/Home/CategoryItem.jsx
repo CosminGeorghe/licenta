@@ -8,7 +8,7 @@ const CategoryItem = ({ item }) => {
       <div className="categoryitem_info">
         <h1 className="categoryitem_title">{item.title}</h1>
         <Link to={`/products/${item.category}`} className="categoryitem_button">
-          SHOP NOW
+          CUMPARA ACUM
         </Link>
       </div>
     </div>

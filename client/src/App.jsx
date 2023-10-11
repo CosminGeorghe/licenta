@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import HomePage from "./Pages/Home/index";
+import AdminPage from "./Pages/Admin";
 import LoginPage from "./Pages/Login/index";
 import RegisterPage from "./Pages/Register/index";
 import NavBar from "./components/NavBar";
@@ -15,25 +16,14 @@ import ProductList from "./Pages/ProductList/index";
 import Newsletter from "./components/Newsletter";
 import Product from "./Pages/Product/index";
 import CartPage from "./Pages/Cart/index";
-import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "./redux/cartRedux";
+import { useSelector } from "react-redux";
+import User from "./Pages/User/User";
+import CheckoutPage from "./Pages/Checkout";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 
 const App = () => {
   const user = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
-  /*
-  useEffect(() => {
-    console.log(Cookies.get('cart'));
-    if (Cookies.get('cart')) {
-      const products = JSON.parse(Cookies.get('cart'));
-      dispatch(setProducts({ products: products, quantity: products.length, price: 8000 }))
-      console.log(products);
-    }
-  }, [dispatch]);
-*/
-  console.log("da");
 
   return (
     <Router>
@@ -41,6 +31,7 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route
             path="/login"
             element={user.token ? <Navigate to="/" /> : <LoginPage />}
@@ -49,12 +40,15 @@ const App = () => {
             path="/register"
             element={user.token ? <Navigate to="/" /> : <RegisterPage />}
           />
+          <Route path="/user/:id" element={<User />}></Route>
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/products/:category" element={<ProductList />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/product/:id" element={<Product />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
-        <Newsletter />
       </div>
     </Router>
   );

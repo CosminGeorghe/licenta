@@ -46,6 +46,14 @@
   cursor: pointer;
 }
 
+.product_cos_btn:hover {
+  background-color: #0c386d;
+}
+
+.product_cos_btn:active {
+  transform: scale(0.95);
+}
+
 .product_wish_btn {
   border: 0px;
   background-color: white;

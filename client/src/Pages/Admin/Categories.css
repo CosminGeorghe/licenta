@@ -1,0 +1,62 @@
+.categories_add_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #e8f5e9;
+}
+
+.categories_add_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 100%;
+}
+
+.categories_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.categories_label {
+  font-size: large;
+  width: 100px;
+  text-align: end;
+}
+
+.categories_input {
+  font-size: large;
+  margin: 10px 0px;
+  padding: 4px;
+  width: 100%;
+}
+
+.categories_expanded_expand_btn {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+}
+
+.categories_confirm_btn {
+  padding: 8px;
+  background-color: #5dbea3;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.categories_confirm_btn:hover {
+  background-color: #5adbb5;
+}
+
+.categories_confirm_btn:active {
+  background-color: #33b249;
+}

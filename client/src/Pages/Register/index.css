@@ -53,7 +53,10 @@
   align-self: flex-end;
 }
 
-
+.register_form_bottom{
+  display: flex;
+  flex-direction: column;
+}
 
 .register_agreement {
   font-size: 12px;
@@ -67,6 +70,11 @@
   background-color: teal;
   color: white;
   cursor: pointer;
+}
+
+.register_button:disabled {
+  color: rgb(150, 150, 150);
+  cursor: not-allowed;
 }
 
 @media only screen and (max-width: 900px) {

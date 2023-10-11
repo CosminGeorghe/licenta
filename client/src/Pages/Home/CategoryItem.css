@@ -25,17 +25,29 @@
 }
 
 .categoryitem_title {
-    color: white;
-    margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  margin-bottom: 20px;
 }
 
 .categoryitem_button {
-    border: none;
-    padding: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    background-color: white;
-    font-size: 13px;
-    color: black;
-    font-weight: 500;
+  border: none;
+  padding: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: white;
+  font-size: 13px;
+  color: black;
+  font-weight: 500;
+}
+
+.categoryitem_button:hover {
+  background-color: lightgray;
+  color: white;
+}
+
+.categoryitem_button:active {
+  transform: scale(0.95);
 }

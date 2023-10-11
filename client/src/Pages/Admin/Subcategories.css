@@ -1,0 +1,56 @@
+.subcategories_add_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #e8f5e9;
+}
+
+.subcategories_add_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 100%;
+}
+
+.subcategories_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.subcategories_label {
+  font-size: large;
+  width: 120px;
+  text-align: end;
+}
+
+.subcategories_input {
+  font-size: large;
+  margin: 10px 0px;
+  padding: 4px;
+  width: 100%;
+}
+
+.subcategories_confirm_btn {
+  padding: 8px;
+  background-color: #5dbea3;
+  color: white;
+  font-size: medium;
+  border-radius: 4px;
+  border: none;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.subcategories_confirm_btn:hover {
+  background-color: #5adbb5;
+}
+
+.subcategories_confirm_btn:active {
+  background-color: #33b249;
+}
